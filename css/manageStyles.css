@@ -1,0 +1,393 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px;
+    padding: 10px;
+    background-image: url('Background.jpg'); /* Replace with your background image path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Header containing logo and banner */
+.header {
+position: sticky;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px;
+}
+
+/* Banner at the top with an image */
+.banner {
+    width: 80%;
+    height: 200px; /* Adjust the height of the banner */
+    background-image: url('PSU-campus.jpg'); /* Replace with the path to your banner image */
+    background-size: cover;
+    background-position: center;
+    
+}
+
+/* Logo Styling */
+.logo {
+width: 150px; /* Adjust logo width */
+height: auto;
+margin-right: 20px; /* Space between the logo and banner */
+}
+
+/* Wrapper for all content to ensure it appears above the background */
+.main-content {
+    position: relative;
+    z-index: 1;
+    /* Content stays above the background */
+}
+
+/* Explicit z-index for graph to ensure visibility */
+#timeGraphContainer,
+#testChart {
+    z-index: 2;
+    /* Make sure the graph appears above the background */
+}
+
+/* Logo Styling */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.university-logo {
+    width: 150px;
+    height: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* Table Styling */
+.scroll-container {
+    height: 450px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+    background-color: #f9f9f9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table,
+th,
+td {
+    border: 1px solid rgb(76, 155, 173);
+}
+
+th,
+td {
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+}
+
+th {
+    color: #ffffff;
+    /* Red text color, you can replace this with your desired color */
+    background-color: rgb(89, 179, 198);
+    padding: 10px;
+    text-align: left;
+}
+
+td.advisor-name {
+    cursor: pointer;
+    color: blue;
+    font-weight: bold; /* Make advisor names stand out */
+}
+
+td.advisor-name:hover {
+    background-color: #d3e0ff; /* Light blue background on hover */
+    color: darkblue;           /* Darker blue on hover for better contrast */
+}
+
+.scroll-container {
+    height: 450px;
+    overflow-y: scroll;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-start;
+    /* Aligns buttons to the left */
+    gap: 10px;
+    /* Space between buttons */
+    margin-bottom: 20px;
+    /* Adds space below the buttons */
+}
+
+/* Button Styling */
+button {
+    padding: 6px 12px;
+    border: none;
+    background-color: rgb(50, 113, 180);
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: rgb(0, 86, 179);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 3px 2px rgba(0, 123, 255, 0.5);
+}
+
+/* Popup Styling */
+.popup {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.popup button {
+    margin-top: 10px;
+}
+
+.advisor-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.advisor-list li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.advisor-list li:hover {
+    background-color: #eee;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#advisorInfoPopup,
+#studentsWithoutAdvisorPopup,
+#advisorsWithoutStudentsPopup,
+#assignConfirmationPopup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 1001;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black w/ opacity */
+    overflow: auto;
+    /* Enable scroll if needed */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styling */
+#addStudentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#addStudentForm label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#addStudentForm input,
+#addStudentForm select {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#addStudentForm button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#addStudentForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#editStudentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* The Modal (background) */
+/* Modal styling to make it dynamic based on content */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1000;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black w/ opacity */
+    overflow: auto;
+    /* Enable scroll if content exceeds window height */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    /* Center the modal vertically */
+    padding: 20px;
+    border: 1px solid #888;
+    width: auto;
+    /* Adjust width based on content */
+    max-width: 90%;
+    /* Ensure the modal doesn't exceed 90% of the screen width */
+    max-height: 90%;
+    /* Ensure the modal doesn't exceed 90% of the screen height */
+    overflow: auto;
+    /* Add scroll if the content exceeds the modal height */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Ensure table inside the modal adjusts its size to fit content */
+.modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    /* Allow the table to adjust based on content */
+}
+
+.modal-content th,
+.modal-content td {
+    padding: 10px;
+    border: 1px solid rgb(76, 155, 173);
+    text-align: left;
+    word-wrap: break-word;
+    /* Ensure long text wraps */
+}
+
+.clickable {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.clickable:hover {
+    color: darkblue;
+    background-color: #d3e0ff;
+}

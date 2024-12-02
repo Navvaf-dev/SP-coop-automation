@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student & Advisor Management</title>
+    <link rel="stylesheet" href="css\manageStyles.css">
+
+
+    <!--for graph-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Add Plotly.js library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Add local javascript functions -->
+    <script src="scripts\manageFunctions.js"></script>
+
+</head>
+
+<body>
+    <!-- Header with logo beside banner -->
+    <div class="header">
+        <img src="images\PSU-logo.png" alt="Logo" class="logo"> <!-- Replace with the path to your logo -->
+        <div class="banner"></div> <!-- Banner Image -->
+    </div>
+
+    <div class="container">
+        <h1>Student & Advisor Management</h1>
+
+        <div class="buttons">
+            <!-- Student Buttons -->
+            <button id="addStudentButton" onclick="showAddStudentPopup()">Add Student</button>
+            <button id="editStudentButton" onclick="handleEditStudentButton()">Edit Student</button>
+            <button id="removeStudentButton" onclick="confirmRemoveStudent()">Remove Student</button>
+
+            <!-- Advisor Buttons -->
+            <button id="addAdvisorButton" style="display:none;" onclick="showAddAdvisorPopup()">Add Advisor</button>
+            <button id="editAdvisorButton" style="display:none;" onclick="handleEditAdvisorButton()">Edit
+                Advisor</button>
+            <button id="removeAdvisorButton" style="display:none;" onclick="confirmRemoveAdvisor()">Remove
+                Advisor</button>
+
+
+            <button id="assignAdvisorButton" onclick="assignAdvisor()">Assign Advisor</button>
+            <button id="unassignAdvisorButton" onclick="unassignAdvisor()">Unassign Advisor</button>
+            <button id="studentsWithoutAdvisorButton" onclick="showStudentsWithoutAdvisor()">Students w/o
+                Advisor</button>
+            <button id="advisorsWithoutStudentsButton" onclick="showAdvisorsWithoutStudents()"
+                style="display: none;">Advisors w/o Students</button>
+            <button id="toggleTableButton" style="width: 20%; margin-left: 100px" onclick="toggleTable()">Switch to
+                Advisor Table</button>
+        </div>
+
+
+        <!-- Popup modal for adding a student -->
+        <div id="addStudentModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeAddStudentPopup()">&times;</span>
+                <h2>Add New Student</h2>
+                <form id="addStudentForm">
+                    <label for="studentID">ID:</label>
+                    <input type="text" id="studentID" name="studentID" placeholder="Student ID" required>
+
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
+
+                    <label for="speciality">Speciality:</label>
+                    <select id="speciality" name="speciality" required>
+                        <option value="" disabled selected>Select Speciality</option>
+                        <option value="Software Engineering">Software Engineering</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Computer Science (Cybersecurity)">Computer Science (Cybersecurity)</option>
+                        <option value="Software Engineering (Cybersecurity)">Software Engineering (Cybersecurity)
+                        </option>
+                        <option value="Information Systems">Information Systems</option>
+                        <option value="Information Systems (Cybersecurity)">Information Systems (Cybersecurity)</option>
+                        <option value="Data Science">Data Science</option>
+                        <option value="Cybersecurity">Cybersecurity</option>
+                        <option value="Artificial Intelligence">Artificial Intelligence</option>
+                        <option value="Machine Learning">Machine Learning</option>
+                    </select>
+
+                    <label for="status">Status:</label>
+                    <select id="status" name="status" required>
+                        <option value="" disabled selected>Select Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+
+                    <label for="mobilePhone">Mobile Phone:</label>
+                    <input type="text" id="mobilePhone" name="mobilePhone" placeholder="Mobile Phone" required>
+
+                    <label for="personalEmail">Personal Email:</label>
+                    <input type="email" id="personalEmail" name="personalEmail" placeholder="Personal Email" required>
+
+                    <label for="universityEmail">University Email:</label>
+                    <input type="email" id="universityEmail" name="universityEmail" placeholder="University Email"
+                        required>
+
+                    <label for="coopStartDate">Co-op Start Date:</label>
+                    <input type="date" id="coopStartDate" name="coopStartDate" required>
+
+                    <label for="coopEndDate">Co-op End Date:</label>
+                    <input type="date" id="coopEndDate" name="coopEndDate" required>
+
+                    <button type="button" onclick="addStudent()">Add Student</button>
+                </form>
+            </div>
+        </div>
+
+       <!-- Add Advisor Modal -->
+<div id="addAdvisorModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddAdvisorPopup()">&times;</span>
+        <h2>Add New Advisor</h2>
+        <label for="newAdvisorID">ID:</label>
+        <input type="text" id="newAdvisorID" name="newAdvisorID" placeholder="Enter advisor's ID" required>
+
+        <label for="newAdvisorName">Full Name:</label>
+        <input type="text" id="newAdvisorName" name="newAdvisorName" placeholder="Enter advisor's full name" required>
+
+        <label for="newAdvisorEmail">Email:</label>
+        <input type="email" id="newAdvisorEmail" name="newAdvisorEmail" placeholder="Enter advisor's email" required>
+
+        <button type="button" onclick="addAdvisor()">Add Advisor</button>
+    </div>
+</div>
+
+<!-- Edit Advisor Modal -->
+<div id="editAdvisorModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeEditAdvisorPopup()">&times;</span>
+        <h2>Edit Advisor</h2>
+
+        <label for="editAdvisorID">ID:</label>
+        <input type="text" id="editAdvisorID" name="editAdvisorID" required>
+
+        <label for="editAdvisorName">Full Name:</label>
+        <input type="text" id="editAdvisorName" name="editAdvisorName" required>
+
+        <label for="editAdvisorEmail">Email:</label>
+        <input type="email" id="editAdvisorEmail" name="editAdvisorEmail" required>
+
+        <button type="button" onclick="saveEditedAdvisor()">Save Changes</button>
+    </div>
+</div>
+
+
+        <!-- Search Bar -->
+        <input type="text" id="search" placeholder="Search by ID" onkeyup="searchItem()">
+        <!-- Contact Students Button -->
+        <button id="contactStudentsButton" style="background-color: green; color: white;" onclick="contactSelectedStudents()">Contact Students</button> 
+        <!-- Contact Advisors Button (initially hidden) -->
+        <button id="contactAdvisorsButton" style="background-color: green; color: white; display: none;" onclick="contactSelectedAdvisors()">Contact Advisors</button>
+
+        <!-- Student Table -->
+        <div id="studentTableContainer" class="scroll-container">
+            <table id="studentTable">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAllCheckbox" onclick="toggleSelectAll(this)"></th>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Speciality</th>
+                        <th>Status</th>
+                        <th>Mobile Phone</th>
+                        <th>Personal Email</th>
+                        <th>University Email</th>
+                        <th>Co-op Start Date</th>
+                        <th>Co-op End Date</th>
+                        <th>Advisor</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    <!-- Table rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+  <!-- Advisor Table (Initially Hidden) -->
+<div id="advisorTableContainer" class="scroll-container" style="display: none;">
+    <table id="advisorTable">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="selectAllAdvisorCheckbox" onclick="toggleSelectAllAdvisors(this)"></th>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="advisorTableBody">
+            <!-- Advisor rows will be dynamically populated here -->
+        </tbody>
+    </table>
+</div>
+
+   <!-- Time Graph Button and Container for Plotly Graph -->
+<div>
+    <button id="timeGraphButton" style="width: 50%; margin-top: 20px; margin-left: auto; margin-right: auto; display: block;" onclick="toggleTimeGraph()">Time Graph</button>
+    
+   <!-- Dropdown to select timeline view -->
+   <select id="timelineViewSelector" style="width: 200px; margin-top: 10px; display: none;" onchange="updateTimeGraph()">
+    <option value="startEnd" selected>Start/End</option>
+    <option value="earlyReport">Early Report Deadline</option>
+    <option value="midwayReport">Midway Report Deadline</option>
+    <option value="finalReport">Final Report Deadline</option>
+</select>
+
+
+    <div id="timeGraphContainer" style="display:none; margin-top: 20px;">
+        <div id="timeGraphChart" style="width:100%; height:500px;"></div>
+    </div>
+</div>
+
+
+
+
+    <!-- Popup modal for editing a student -->
+    <div id="editStudentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditStudentPopup()">&times;</span>
+            <h2 style="text-align: center;">Edit Student</h2>
+            <form id="editStudentForm">
+                <input type="hidden" id="editRowIndex" name="editRowIndex">
+
+                <label for="editStudentID">ID:</label>
+                <input type="text" id="editStudentID" name="editStudentID" required>
+
+                <label for="editFullName">Full Name:</label>
+                <input type="text" id="editFullName" name="editFullName" required>
+
+                <label for="editSpeciality">Speciality:</label>
+                <select id="editSpeciality" name="editSpeciality" required>
+                    <option value="" disabled selected>Select Speciality</option>
+                    <option value="Software Engineering">Software Engineering</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Computer Science (Cybersecurity)">Computer Science (Cybersecurity)</option>
+                    <option value="Software Engineering (Cybersecurity)">Software Engineering (Cybersecurity)
+                    </option>
+                    <option value="Information Systems">Information Systems</option>
+                    <option value="Information Systems (Cybersecurity)">Information Systems (Cybersecurity)</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Cybersecurity">Cybersecurity</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Machine Learning">Machine Learning</option>
+                </select>
+
+                <label for="editStatus">Status:</label>
+                <select id="editStatus" name="editStatus" required>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+
+                <label for="editMobilePhone">Mobile Phone:</label>
+                <input type="text" id="editMobilePhone" name="editMobilePhone" required>
+
+                <label for="editPersonalEmail">Personal Email:</label>
+                <input type="email" id="editPersonalEmail" name="editPersonalEmail" required>
+
+                <label for="editUniversityEmail">University Email:</label>
+                <input type="email" id="editUniversityEmail" name="editUniversityEmail" required>
+
+                <label for="editCoopStartDate">Co-op Start Date:</label>
+                <input type="date" id="editCoopStartDate" name="editCoopStartDate" required>
+
+                <label for="editCoopEndDate">Co-op End Date:</label>
+                <input type="date" id="editCoopEndDate" name="editCoopEndDate" required>
+
+                <button type="button" onclick="saveEditedStudent()">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Advisor Information Popup -->
+    <div id="advisorInfoPopup" class="popup">
+        <h3 id="advisorInfoTitle"></h3>
+        <p id="advisorStudentCount"></p>
+        <p><strong>Students:</strong></p>
+        <ul id="advisorStudentList"></ul>
+        <button onclick="closeAdvisorInfo()">Close</button>
+    </div>
+
+    <!-- Students Without Advisor Popup -->
+    <div id="studentsWithoutAdvisorPopup" class="popup">
+        <h3>Students Without Advisor</h3>
+        <ul id="studentsWithoutAdvisorList"></ul>
+        <button onclick="closeStudentsWithoutAdvisorPopup()">Close</button>
+    </div>
+
+    <!-- Advisors Without Students Popup -->
+    <div id="advisorsWithoutStudentsPopup" class="popup">
+        <h3>Advisors Without Students</h3>
+        <ul id="advisorsWithoutStudentsList"></ul>
+        <button onclick="closeAdvisorsWithoutStudentsPopup()">Close</button>
+    </div>
+
+    <!-- Advisor Selection Popup -->
+    <div id="advisorPopup" class="popup">
+        <h3>Select an Advisor</h3>
+        <input type="text" id="advisorSearch" placeholder="Search Advisor..."> <!-- Search bar -->
+        <ul id="advisorList" class="advisor-list"></ul> <!-- Advisor list -->
+        <button onclick="closePopup()">Cancel</button>
+    </div>
+
+    <!-- Assign Advisor Confirmation Popup -->
+    <div id="assignConfirmationPopup" class="popup">
+        <h3>Confirm Advisor Assignment</h3>
+        <p>Are you sure you want to assign this advisor to the selected students?</p>
+        <button onclick="confirmAssign()">Confirm</button>
+        <button onclick="cancelAssign()">Cancel</button>
+    </div>
+
+    <!-- Unassign Confirmation Popup -->
+    <div id="unassignPopup" class="popup">
+        <h3>Unassign Advisor</h3>
+        <p>Are you sure you want to unassign the selected students' advisors?</p>
+        <button onclick="confirmUnassign()">Confirm</button>
+        <button onclick="closeUnassignPopup()">Cancel</button>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Modal to display clicked student's details on graph -->
+    <div id="studentDetailsModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeStudentDetailsModal()">&times;</span>
+            <h3>Selected Student Details</h3>
+            <table style="width: 100%; border: 1px solid rgb(76, 155, 173);">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Speciality</th>
+                        <th>Status</th>
+                        <th>Mobile Phone</th>
+                        <th>Personal Email</th>
+                        <th>University Email</th>
+                        <th>Co-op Start Date</th>
+                        <th>Co-op End Date</th>
+                        <th>Advisor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="studentDetailsRow">
+                        <!-- This row will be dynamically populated with student details -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

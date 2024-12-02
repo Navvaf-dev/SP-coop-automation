@@ -1,0 +1,234 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 10px; /* Increased margin by 25% */
+    padding: 10px; /* Increased padding by 25% */
+    background-image: url('Background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-size: 125%; /* Increase font size by 25% */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Banner at the top with an image */
+.banner {
+    width: 80%;
+    height: 200px;
+    /* Adjust the height of the banner */
+    background-image: url('PSU-campus.jpg');
+    /* Replace with the path to your banner image */
+    background-size: cover;
+    background-position: center;
+}
+
+.logo {
+    width: 150px; /* Increased width by 25% */
+    height: auto;
+    margin-right: 20px; /* Increased margin-right by 25% */
+}
+
+.container {
+    max-width: 1500px; /* Increased max width by 25% */
+    margin: 0 auto;
+}
+
+.advisor-name {
+    font-size: 30px; /* Increased font size by 25% */
+    font-weight: bold;
+    margin-bottom: 25px; /* Increased margin-bottom by 25% */
+}
+
+.first-row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 25px; /* Increased margin-bottom by 25% */
+}
+
+.deadlines-row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 25px; /* Increased margin-bottom by 25% */
+}
+
+.second-row {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 37.5px; /* Increased margin-bottom by 25% */
+}
+
+.doc-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 337.5px; /* Increased width by 25% */
+}
+
+.doc-square {
+    width: 337.5px; /* Increased width by 25% */
+    height: 337.5px; /* Increased height by 25% */
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.upload-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 37.5px; /* Increased margin-bottom by 25% */
+}
+
+.upload-square {
+    width: 337.5px; /* Increased width by 25% */
+    height: 337.5px; /* Increased height by 25% */
+    border: 2px dashed #aaa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px; /* Increased font size by 25% */
+    color: #666;
+    background-color: #fff;
+}
+
+.time-graph {
+    margin-top: 37.5px; /* Increased margin-top by 25% */
+    margin-left: 300px;  /* Center the graph horizontally */
+    margin-right: auto; /* Center the graph horizontally */
+    width: 80%;         /* Set a fixed width for the graph container */
+    display: block;     /* Ensure it's treated as a block-level element */
+}
+
+
+
+.contact-button {
+    margin-top: 0px;
+    margin-bottom: 93.75px; /* Increased margin-bottom by 25% */
+    padding: 12.5px 25px; /* Increased padding by 25% */
+    font-size: 20px; /* Increased font size by 25% */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.contact-button:hover {
+    background-color: #45a049;
+}
+
+.deadline {
+    text-align: center;
+    font-weight: bold;
+    margin: 12.5px 0; /* Increased margin by 25% */
+    color: red;
+    font-size: 20px; /* Increased font size by 25% */
+}
+
+/* Ensures that the download link is centered */
+.doc-square a {
+    text-decoration: none;
+    font-size: 20px; /* Increased font size by 25% */
+    color: #000;
+}
+
+.upload-square {
+    position: relative;
+    width: 337.5px;
+    height: 337.5px;
+    border: 2px dashed #aaa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #666;
+    background-color: #fff;
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* Title text for each upload square */
+.upload-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+/* Center the uploaded file input and make it visible */
+.file-input-visible {
+    position: absolute;
+    top: 50%; /* Centers vertically */
+    transform: translateY(-50%);
+    width: 80%; /* Adjust width as needed */
+    margin: 0 auto;
+    z-index: 1; /* Ensures it stays above other elements */
+}
+
+/* Center the uploaded file name display */
+.uploaded-file {
+    font-size: 18px;
+    color: #666;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Upload and remove button container at the bottom of the square */
+.upload-actions {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: auto; /* Pushes buttons to the bottom */
+    padding-top: 10px;
+}
+
+/* Styling for upload button */
+.upload-button {
+    padding: 8px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 45%;
+    text-align: center;
+}
+
+/* Styling for remove button */
+.remove-button {
+    padding: 8px;
+    font-size: 16px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 45%;
+    text-align: center;
+}
+
+/* Style for displaying the file name beside the input field */
+.file-placeholder {
+    font-style: italic;
+    color: #666;
+}
+
+/* Optional style for the input to indicate it has a preloaded file */
+.preloaded-file {
+    border: 2px solid #4CAF50; /* Green border to indicate a file is preloaded */
+    background-color: #f4f4f4;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advisor Portal</title>
+
+    <!-- Import data and other functions -->
+    <script src="scripts/advisorFunctionsModule.js" type="module"></script>
+    <!-- Include the Plotly.js library -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <link rel="stylesheet" href="css/advisorStyles.css">
+</head>
+<body>
+    <!-- Header with logo beside banner -->
+    <div class="header">
+        <img src="images/PSU-logo.png" alt="Logo" class="logo">
+        <div class="banner"></div>
+    </div>
+
+    <div class="container">
+        <h1>Advisor Portal</h1>
+        <p id="error"></p>
+
+        <!-- Input for Advisor Name -->
+        <input type="text" id="advisorNameInput" placeholder="Please enter your name">
+        <button id="enterBtn">Enter</button>
+
+        <!-- Student Table Container -->
+        <div id="studentTableContainer" style="display:none;">
+            <button id="contactStudentsBtn" class="contact-button" onclick="contactSelectedStudents()" style="display:none;">Contact Students</button>
+            <h2>Students Under Advisor</h2>
+            <table id="studentTable" border="1" cellpadding="10">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAllCheckbox" onclick="toggleSelectAll(this)"></th>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Speciality</th>
+                        <th>Status</th>
+                        <th>Mobile Phone</th>
+                        <th>Personal Email</th>
+                        <th>University Email</th>
+                        <th>Co-op Start Date</th>
+                        <th>Co-op End Date</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    <!-- Data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Time Graph Button and Container -->
+        <button id="timeGraphButton" onclick="toggleTimeGraph()" style="display:none;">Time Graph</button>
+        <select id="timelineViewSelector" style="display:none; margin-top: 10px;" onchange="updateTimeGraph()">
+            <option value="startEnd" selected>Start/End</option>
+            <option value="earlyReport">Early Report Deadline</option>
+            <option value="midwayReport">Midway Report Deadline</option>
+            <option value="finalReport">Final Report Deadline</option>
+        </select>
+        <div id="timeGraphContainer">
+            <div id="timeGraphChart"></div>
+        </div>
+    </div>
+</body>
+</html>

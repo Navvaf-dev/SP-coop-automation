@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="css/studentStyles.css">
+    <!-- Include Plotly.js for graph rendering -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Script to handle login and student page display -->
+    <script src="scripts/studentFunctions.js" type="module"></script>
+</head>
+
+<body>
+    <!-- Header with logo beside banner -->
+    <div class="header">
+        <img src="images/PSU-logo.png" alt="Logo" class="logo">
+        <div class="banner"></div>
+    </div>
+
+    <div class="container">
+        <!-- Student ID Input Form -->
+        <div id="loginSection">
+            <label for="studentId">Enter Student ID:</label>
+            <input type="text" id="studentId" name="studentId">
+            <button onclick="enterStudentPortal()">Enter</button>
+        </div>
+        
+        <!-- Full Page for Student after Login -->
+        <div id="studentPage" style="display:none;">
+            <div class="advisor-name" id="advisorName">Advisor: </div>
+
+            <!-- "Contact Advisor" button -->
+            <button class="contact-button" onclick="contactAdvisor()">Contact Advisor</button>
+
+            <!-- Report Guidelines and Deadlines -->
+            <div id="docContainer" class="doc-container">
+                <!-- First Row: Guidelines and Squares -->
+                <div class="first-row">
+                    <div class="doc-item">
+                        <div class="doc-guideline">Early Report Guidelines</div>
+                        <div class="doc-square">
+                            <a href="https://docs.google.com/document/d/1vfdEjvK8kO1WNjkNm6E9dktwYj-8GlM3/edit" target="_blank">
+                                <img src="images/pngwing.com.png" alt="Document Image" style="width: 100%; height: 100%; object-fit: cover;">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="doc-item">
+                        <div class="doc-guideline">Midway Report Guidelines</div>
+                        <div class="doc-square">
+                            <a href="https://docs.google.com/document/d/1vfdEjvK8kO1WNjkNm6E9dktwYj-8GlM3/edit" target="_blank">
+                                <img src="images/pngwing.com.png" alt="Document Image" style="width: 100%; height: 100%; object-fit: cover;">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="doc-item">
+                        <div class="doc-guideline">Final Report Guidelines</div>
+                        <div class="doc-square">
+                            <a href="https://docs.google.com/document/d/1vfdEjvK8kO1WNjkNm6E9dktwYj-8GlM3/edit" target="_blank">
+                                <img src="images/pngwing.com.png" alt="Document Image" style="width: 100%; height: 100%; object-fit: cover;">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deadlines between First and Second Row -->
+                <div class="deadlines-row">
+                    <div class="deadline" id="earlyDeadline" style="display:none;">Early Report Deadline</div>
+                    <div class="deadline" id="midwayDeadline" style="display:none;">Midway Report Deadline</div>
+                    <div class="deadline" id="finalDeadline" style="display:none;">Final Report Deadline</div>
+                </div>
+
+                <div class="second-row upload-container">
+                    <!-- Early Report Upload Square -->
+                    <div class="upload-square">
+                        <div class="upload-title">Upload Early Report here</div>
+                        <input type="file" id="earlyReportUpload" onchange="handleFileSelection(event, 'Early Report')" class="file-input-visible"/>
+                        <div id="earlyReportFile" class="uploaded-file"></div> <!-- Display file name here -->
+                        <div class="upload-actions">
+                            <button class="upload-button" onclick="triggerUpload('Early Report')">Upload File</button>
+                            <button id="earlyReportRemove" class="remove-button" onclick="removeFile('Early Report')">Remove File</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Midway Report Upload Square -->
+                    <div class="upload-square">
+                        <div class="upload-title">Upload Midway Report here</div>
+                        <input type="file" id="midwayReportUpload" onchange="uploadFile(event, 'Midway Report')" class="file-input-visible"/>
+                        <div id="midwayReportFile" class="uploaded-file"></div> <!-- Display file name here -->
+                        <div class="upload-actions">
+                            <button class="upload-button" onclick="document.getElementById('midwayReportUpload').click()">Upload File</button>
+                            <button id="midwayReportRemove" class="remove-button" onclick="removeFile('Midway Report')">Remove File</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Final Report Upload Square -->
+                    <div class="upload-square">
+                        <div class="upload-title">Upload Final Report here</div>
+                        <input type="file" id="finalReportUpload" onchange="uploadFile(event, 'Final Report')" class="file-input-visible"/>
+                        <div id="finalReportFile" class="uploaded-file"></div> <!-- Display file name here -->
+                        <div class="upload-actions">
+                            <button class="upload-button" onclick="document.getElementById('finalReportUpload').click()">Upload File</button>
+                            <button id="finalReportRemove" class="remove-button" onclick="removeFile('Final Report')">Remove File</button>
+                        </div>
+                    </div>
+                </div>                
+                          
+            <!-- Time Graph for Student -->
+            <div class="time-graph">
+                <div id="timeGraphChart" style="width:100%; height:400px;"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
