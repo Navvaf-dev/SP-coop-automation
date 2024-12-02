@@ -88,10 +88,10 @@
                     <!-- Midway Report Upload Square -->
                     <div class="upload-square">
                         <div class="upload-title">Upload Midway Report here</div>
-                        <input type="file" id="midwayReportUpload" onchange="uploadFile(event, 'Midway Report')" class="file-input-visible"/>
+                        <input type="file" id="midwayReportUpload" onchange="handleFileSelection(event, 'Midway Report')" class="file-input-visible"/>
                         <div id="midwayReportFile" class="uploaded-file"></div> <!-- Display file name here -->
                         <div class="upload-actions">
-                            <button class="upload-button" onclick="document.getElementById('midwayReportUpload').click()">Upload File</button>
+                            <button class="upload-button" onclick="triggerUpload('Midway Report')">Upload File</button>
                             <button id="midwayReportRemove" class="remove-button" onclick="removeFile('Midway Report')">Remove File</button>
                         </div>
                     </div>
@@ -99,10 +99,10 @@
                     <!-- Final Report Upload Square -->
                     <div class="upload-square">
                         <div class="upload-title">Upload Final Report here</div>
-                        <input type="file" id="finalReportUpload" onchange="uploadFile(event, 'Final Report')" class="file-input-visible"/>
+                        <input type="file" id="finalReportUpload" onchange="handleFileSelection(event, 'Final Report')" class="file-input-visible"/>
                         <div id="finalReportFile" class="uploaded-file"></div> <!-- Display file name here -->
                         <div class="upload-actions">
-                            <button class="upload-button" onclick="document.getElementById('finalReportUpload').click()">Upload File</button>
+                            <button class="upload-button" onclick="triggerUpload('Final Report')">Upload File</button>
                             <button id="finalReportRemove" class="remove-button" onclick="removeFile('Final Report')">Remove File</button>
                         </div>
                     </div>
